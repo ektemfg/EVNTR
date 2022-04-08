@@ -12,11 +12,11 @@
         android:id="@+id/category_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="9dp"
         android:clickable="true"
-        android:text="opSEC"
+        android:text="Education"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/divider3"
@@ -32,13 +32,15 @@
         android:layout_marginEnd="57dp"
         android:layout_marginBottom="10dp"
         android:clickable="true"
-        android:text="CoDEMY"
+        android:text="devOPS"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/divider3"
         app:layout_constraintEnd_toStartOf="@+id/category_three"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/category_one"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -58,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginBottom="10dp"
         android:clickable="true"
         android:text="Gaming"
@@ -66,14 +68,15 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/divider3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/event_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="185dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="185dp"
         android:clickable="true"
         android:text="Oslo"
@@ -120,66 +123,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Event_RecyclerView"
-        android:layout_width="409dp"
-        android:layout_height="498dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/events_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/divider3"
-        app:layout_constraintTop_toBottomOf="@+id/category_one" />
-
-    <ImageButton
-        android:id="@+id/profile_button"
-        android:layout_width="66dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="71dp"
-        android:layout_marginBottom="5dp"
-        android:backgroundTint="#FFFFFF"
-        android:clickable="false"
-        android:src="@drawable/profile"
+        android:layout_width="400dp"
+        android:layout_height="527dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/fav_button"
-        app:layout_constraintTop_toBottomOf="@+id/event_recyclerView"
-        app:tint="#000000" />
-
-    <ImageButton
-        android:id="@+id/events_button"
-        android:layout_width="66dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="71dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="5dp"
-        android:backgroundTint="#FFFFFF"
-        android:clickable="false"
-        android:src="@drawable/events"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fav_button"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_recyclerView"
-        app:layout_constraintVertical_bias="0.0"
-        app:tint="#E91E63" />
-
-    <ImageButton
-        android:id="@+id/fav_button"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginBottom="12dp"
-        android:backgroundTint="#FFFFFF"
-        android:clickable="false"
-        android:src="@drawable/favorites"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/profile_button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/events_button"
-        app:tint="#040303" />
+        app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
