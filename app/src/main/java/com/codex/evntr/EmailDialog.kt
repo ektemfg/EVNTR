@@ -9,12 +9,15 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.codex.evntr.API.EventGoing
+import com.codex.evntr.Event.Repository
 
 class EmailDialog: DialogFragment() {
     private lateinit var items: ArrayList<String>
     lateinit var eventName: TextView
     lateinit var eventButton: Button
     lateinit var emailText: EditText
+    var repo = Repository()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         items = arguments?.getStringArrayList(ITEMS) ?: throw IllegalStateException("No args provided")
         getDialog()!!.getWindow()?.setBackgroundDrawableResource(R.drawable.round_corner);
@@ -52,7 +55,6 @@ class EmailDialog: DialogFragment() {
 
         eventButton.setOnClickListener{
             Toast.makeText(context, "Invitasjonen sendt til ${emailText.text} .", Toast.LENGTH_SHORT).show()
-
             this.dismiss();
         }
 

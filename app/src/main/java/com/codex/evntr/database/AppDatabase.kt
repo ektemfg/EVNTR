@@ -6,8 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.codex.evntr.API.Event
+import com.codex.evntr.API.EventGoing
 
-@Database(entities = [Event::class], version = 1, exportSchema = false)
+@Database(entities = [Event::class, EventGoing::class], version = 1, exportSchema = false)
 @TypeConverters(com.codex.evntr.database.TypeConverters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun eventDao(): EventDAO

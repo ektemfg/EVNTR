@@ -11,15 +11,16 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.codex.evntr.API.Event
+import com.codex.evntr.API.EventGoing
 import com.codex.evntr.EmailDialog
 import com.codex.evntr.R
 import com.squareup.picasso.Picasso
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
 
-class EventAdapter(
+class EventGoingAdapter(
     private val dataset: List<Event>
-) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+) : RecyclerView.Adapter<EventGoingAdapter.EventViewHolder>() {
 
     inner class EventViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var title: TextView = view.findViewById(R.id.event_title)

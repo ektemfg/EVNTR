@@ -13,20 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.Volley
 import com.codex.evntr.Event.EventAdapter
-import com.codex.evntr.Event.EventViewModel
+import com.codex.evntr.Event.Repository
 import com.codex.evntr.database.AppDatabase
 
 class FavoriteFragment : Fragment() {
     private lateinit var eventRecyclerView: RecyclerView
     private lateinit var eventLayoutManager: LinearLayoutManager
     private lateinit var eventAdapter: EventAdapter
-    private val viewModel: EventViewModel by viewModels()
+    private val repo = Repository()
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.eventDao = AppDatabase.getInstance(requireContext()).eventDao()
+        repo.eventDao = AppDatabase.getInstance(requireContext()).eventDao()
     }
 
     override fun onCreateView(
@@ -47,7 +47,7 @@ class FavoriteFragment : Fragment() {
 
 
 
-        viewModel.getAllEvents(Volley.newRequestQueue(context)) { events ->
+        repo.getAllEvents(Volley.newRequestQueue(context)) { events ->
             if (events != null) {
                 eventAdapter = EventAdapter(events)
                 eventRecyclerView.adapter = eventAdapter
@@ -63,4 +63,3 @@ class FavoriteFragment : Fragment() {
 
 
 }
-

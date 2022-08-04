@@ -6,6 +6,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.codex.evntr.Event.EventFragment
 import com.codex.evntr.Event.EventFragmentDirections
 
 class MainActivity : AppCompatActivity() {
@@ -36,4 +37,3 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
-

@@ -16,18 +16,17 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.android.volley.toolbox.Volley
+import com.codex.evntr.API.EventGoing
 import com.codex.evntr.EmailDialog
 import com.codex.evntr.R
 import com.codex.evntr.database.AppDatabase
 import com.squareup.picasso.Picasso
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
-import android.content.Intent
-import com.codex.evntr.FavoriteFragment
 
 
 class EventEach : Fragment() {
-    private val viewModel: EventViewModel by viewModels()
+    private val repo = Repository()
     private val naviArguments: EventEachArgs by navArgs()
     private lateinit var each_picture: ImageView
     private lateinit var each_title: TextView
@@ -44,7 +43,7 @@ class EventEach : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.eventDao = AppDatabase.getInstance(requireContext()).eventDao()
+        repo.eventDao = AppDatabase.getInstance(requireContext()).eventDao()
     }
 
     override fun onCreateView(
@@ -73,7 +72,7 @@ class EventEach : Fragment() {
 
 
 
-        viewModel.getEventByID(Volley.newRequestQueue(context), wantedEventID) { wantedEvent ->
+        repo.getEventByID(Volley.newRequestQueue(context), wantedEventID) { wantedEvent ->
             if (wantedEvent != null) {
                 for ((index, event) in wantedEvent.withIndex()) {
                     if (event._id == wantedEventID) {
@@ -99,6 +98,7 @@ class EventEach : Fragment() {
                     var items = arrayListOf<String>(eventTitle, eventUniqueNumber)
                     val emailDialog = EmailDialog.newInstance(items)
                     emailDialog.show(requireActivity().supportFragmentManager, "emailDialog")
+                    repo.goingToDB(EventGoing(naviArguments.thisEventID, true))
 
 
                 }

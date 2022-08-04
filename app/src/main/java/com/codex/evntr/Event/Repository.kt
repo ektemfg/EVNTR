@@ -7,22 +7,22 @@ import com.android.volley.toolbox.StringRequest
 import com.beust.klaxon.Klaxon
     import com.codex.evntr.API.ApiFullResponse
 import com.codex.evntr.API.Event
+import com.codex.evntr.API.EventGoing
+import com.codex.evntr.API_URL
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.codex.evntr.database.EventDAO
 
 
-class EventViewModel : ViewModel() {
+class Repository {
     lateinit var eventDao: EventDAO
 
 
     fun getAllEvents(queue: RequestQueue, callback: (List<Event>?) ->  Unit) {
-        val url = "https://3ii107lu.api.sanity.io/v2021-10-21/data/query/production?query=%7B%0A%20%20%22event%22%3A%20%20*%5B_type%20%3D%3D%20%27event%27%5D%20%7B%0A%0A%20%20%20...%2C%0A%20%20%0A%20%20location%20%7B%0A%20%20%20%20digitalEvent%2C%0A%0A%20%20%20%20address-%3E%20%7B%0A%20%20%20%20%20streetAddress%2C%0A%20%20%20%20%20city%0A%20%20%20%7D%0A%7D%2C%0A%20%20%0A%20%20%20category-%3E%20%7B%0A%20%20%20%20%20type%0A%20%20%20%7D%2C%0A%0A%20%20%20eventImage%20%7B%0A%20%20%20%20%20asset-%3E%20%7B%0A%20%20%20%20%20url%0A%20%20%20%20%7D%0A%20%20%20%7D%2C%0A%0A%20%20%20host%5B%5D-%3E%20%7B%0A%20%20%20%20%20name%0A%20%20%20%7D%2C%0A%0A%20%20%20speaker%5B%5D-%3E%20%7B%0A%20%20%20%20%20name%0A%20%20%20%7D%2C%0A%20%20%20%0A%0A%20%20%20price%0A%20%20%7D%2C%0A%0A%0A%20%20%22locations%22%3A%20*%5B_type%20%3D%3D%20%27location%27%5D%20%7C%20order(city%20asc)%20%7B%0A%20%20%20%20city%0A%20%20%7D%2C%0A%0A%0A%7D"
-
         val stringRequest = StringRequest(
             Request.Method.GET,
-            url,
+            API_URL,
             { response ->
                 val fetched = Klaxon().parse<ApiFullResponse?>(response)
                 if (fetched != null) {
@@ -40,11 +40,9 @@ class EventViewModel : ViewModel() {
     }
 
     fun getEventByID(queue: RequestQueue, wantedEventID: String, callback: (List<Event>?) ->  Unit) {
-        val url = "https://3ii107lu.api.sanity.io/v2021-10-21/data/query/production?query=%7B%0A%20%20%22event%22%3A%20%20*%5B_type%20%3D%3D%20%27event%27%5D%20%7B%0A%0A%20%20%20...%2C%0A%20%20%0A%20%20location%20%7B%0A%20%20%20%20digitalEvent%2C%0A%0A%20%20%20%20address-%3E%20%7B%0A%20%20%20%20%20streetAddress%2C%0A%20%20%20%20%20city%0A%20%20%20%7D%0A%7D%2C%0A%20%20%0A%20%20%20category-%3E%20%7B%0A%20%20%20%20%20type%0A%20%20%20%7D%2C%0A%0A%20%20%20eventImage%20%7B%0A%20%20%20%20%20asset-%3E%20%7B%0A%20%20%20%20%20url%0A%20%20%20%20%7D%0A%20%20%20%7D%2C%0A%0A%20%20%20host%5B%5D-%3E%20%7B%0A%20%20%20%20%20name%0A%20%20%20%7D%2C%0A%0A%20%20%20speaker%5B%5D-%3E%20%7B%0A%20%20%20%20%20name%0A%20%20%20%7D%2C%0A%20%20%20%0A%0A%20%20%20price%0A%20%20%7D%2C%0A%0A%0A%20%20%22locations%22%3A%20*%5B_type%20%3D%3D%20%27location%27%5D%20%7C%20order(city%20asc)%20%7B%0A%20%20%20%20city%0A%20%20%7D%2C%0A%0A%0A%7D"
-
         val stringRequest = StringRequest(
             Request.Method.GET,
-            url,
+            API_URL,
             { response ->
                 val fetched = Klaxon().parse<ApiFullResponse?>(response)
                 if (fetched != null) {
@@ -59,6 +57,15 @@ class EventViewModel : ViewModel() {
 
         queue.add(stringRequest)
     }
+
+    fun getGoingbyID(id: String, callback: (Event) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+           var event = eventDao.getEvent(id)
+            callback(event)
+        }
+            .start()
+    }
+
 
 
     fun updateDB(result: List<Event>) {
@@ -77,5 +84,20 @@ class EventViewModel : ViewModel() {
                 }
 
         }.start()
+    }
+
+    fun goingToDB(eventGoing: EventGoing) {
+        CoroutineScope(Dispatchers.IO).launch {
+            eventDao.going(eventGoing)
+        }
+        .start()
+    }
+
+    fun getGoing(callback: (List<EventGoing>) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            var events = eventDao.getGoingEvents()
+            callback(events)
+        }
+            .start()
     }
 }
